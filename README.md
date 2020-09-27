@@ -1,8 +1,8 @@
+<p style="text-align: center;">
 # DataPhilly Workshops
-Welcome to the DataPhilly Workshop Series
-
+</p><center>
+  
 ## Workshops 2020 
-[DataPhilly Workshops 2020]
 <img src="EventTitleSponsors_Aug302020.png?raw=true"/>
 
 ### September 2020
