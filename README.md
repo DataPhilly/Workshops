@@ -1,6 +1,5 @@
-<p style="text-align: center;">
 # DataPhilly Workshops
-</p><center>
+
   
 ## Workshops 2020 
 <img src="EventTitleSponsors_Aug302020.png?raw=true"/>
