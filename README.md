@@ -3,7 +3,7 @@ Welcome to the DataPhilly Workshop Series
 
 ## Workshops 2020 
 [DataPhilly Workshops 2020]
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+<img src="EventTitleSponsors_Aug302020.png?raw=true"/>
 
 ### September 2020
 [From Stored Data to Data Stories](https://github.com/pjkowalczyk/DataPhilly_StoredDataStories). 
