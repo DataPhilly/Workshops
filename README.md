@@ -13,3 +13,5 @@
 [Intro to SQL](http://tpcg.io/HjSt3dp7). 
 - Instructor: [Kayleigh Smoot](https://www.linkedin.com/in/kayleigh-smoot/). 
 - Detail: SQL is the back-end language for direct data manipulation for many major websites, databases, and computer systems around the world. This workshop is intended to give you a clear understanding of basic SQL syntax and concepts. 
+- Workshop Examples: [JDoODle](https://www.jdoodle.com/ia/2QC)
+- Slides: 
