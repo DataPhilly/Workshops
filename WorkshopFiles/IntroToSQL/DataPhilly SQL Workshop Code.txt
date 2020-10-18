@@ -1,0 +1,129 @@
+SELECT d_firstname, d_lastname
+FROM Doctor;
+
+SELECT p_id, p_lastname, p_firstname, bdate FROM Patient;
+
+SELECT d_firstname AS 'First Name', d_lastname AS 'Last Name'
+FROM Doctor;
+
+SELECT p_firstname AS 'First Name', p_lastname AS 'Last Name'
+FROM Patient;
+
+SELECT specialty FROM Doctor;
+
+SELECT DISTINCT specialty FROM Doctor;
+
+SELECT DISTINCT p_lastname FROM Patient;
+
+SELECT a_id, a_date FROM Appointment LIMIT 3;
+
+SELECT * FROM Patient LIMIT 2, 3;
+
+SELECT d_firstname, d_lastname FROM Doctor
+WHERE d_id <3;
+
+SELECT * FROM Patient
+WHERE p_lastname = 'Jones';
+
+SELECT * FROM Doctor
+WHERE d_title != 'MD';
+
+SELECT * FROM Patient
+WHERE p_firstname = 'Becky'
+AND p_lastname = 'Jones';
+
+SELECT * FROM Patient
+WHERE p_lastname = 'Jones'
+OR p_lastname = 'Roberts';
+
+SELECT * FROM Patient
+WHERE p_lastname
+IN ('Jones','Roberts');
+
+SELECT * FROM Appointment
+WHERE a_id BETWEEN 2 AND 5;
+
+SELECT * FROM Appointment
+WHERE a_date BETWEEN '2016-02-15 10:00:00' AND '2016-02-15 11:00:00';
+
+SELECT * FROM Patient
+WHERE p_firstname LIKE 'J%';
+
+SELECT * FROM Doctor
+WHERE d_lastname LIKE 'Sa_an';
+
+SELECT * FROM Doctor WHERE d_title IS NULL;
+
+SELECT * FROM Doctor WHERE d_title IS NULL
+OR d_title ='';
+
+SELECT p_firstname, p_lastname
+FROM Patient
+ORDER BY p_lastname;
+
+SELECT p_firstname, p_lastname
+FROM Patient
+ORDER BY p_lastname ASC, p_firstname ASC;
+
+SELECT d.d_lastname, a.a_date
+FROM Doctor d
+JOIN Appointment a
+ON d.d_id = a.d_id;
+
+SELECT d.d_lastname, a.a_date, p.p_lastname
+FROM Doctor d
+JOIN Appointment a ON d.d_id = a.d_id
+JOIN Patient p ON a.p_id = p.p_id;
+
+USE example;
+
+SELECT
+	CONCAT(d_firstname, ' ', d_lastname, ', ', d_title) AS
+		'Doctor Name',
+		specialty AS 'Specialty'
+		FROM Doctor;
+		
+SELECT
+	CONCAT(d_firstname, ' ', d_lastname, ', ',
+	IFNULL(d_title, '')
+	) AS 'Doctor Name',
+	specialty AS 'Specialty'
+	FROM Doctor;
+		
+SELECT p_lastname, FLOOR(DATEDIFF(NOW(),bdate)/365) Age
+FROM Patient;
+
+SELECT d.d_lastname, a.a_date
+FROM Doctor d
+JOIN Appointment a
+ON d.d_id = a.d_id
+WHERE DAYNAME(a.a_date) = 'Monday';
+
+SELECT COUNT(*) FROM Doctor;
+
+SELECT MIN(bdate), MAX(bdate) FROM Patient;
+
+SELECT AVG(DATEDIFF(NOW(), bdate)/365) FROM Patient;
+
+SELECT d.d_id, COUNT(*) AS 'Num of Appts'
+FROM Doctor d
+JOIN Appointment a
+ON d.d_id = a.d_id
+GROUP BY d.d_id;
+
+SELECT d.d_id, MAX(TIME(a.a_date)) AS 'Last Appt.'
+FROM Doctor d
+JOIN Appointment a ON d.d_id = a.d_id
+WHERE date(a.a_date) = '2016-02-15'
+GROUP BY d.d_id;
+
+SELECT d.d_id, COUNT(*) AS 'Num of Appts' FROM Doctor d
+JOIN Appointment a ON d.d_id = a.d_id
+GROUP BY d_id
+HAVING COUNT(*) >= 2;
+
+SELECT specialty, count(d_id) UniqueDocs
+FROM Doctor
+GROUP BY specialty
+HAVING UniqueDocs > 1;
+

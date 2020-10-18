@@ -1,0 +1,31 @@
+#Creating Tables
+
+CREATE TABLE 'Appointment' (
+  'a_id' int(11) DEFAULT '0',
+  'a_date' datetime DEFAULT NULL,
+  'p_id' int(11) DEFAULT NULL,
+  'd_id' int(11) DEFAULT NULL
+);
+
+INSERT INTO 'Appointment' VALUES (1,'2016-02-15 10:00:00',5,1),(2,'2016-02-15 10:00:00',3,2),(3,'2016-02-15 10:00:00',4,3),(4,'2016-02-15 11:00:00',2,1),(5,'2016-02-15 11:00:00',8,3),(6,'2016-02-15 11:00:00',1,2),(7,'2016-02-15 12:00:00',6,1),(8,'2016-02-15 12:00:00',7,3),(9,'2016-02-15 12:00:00',10,7);
+
+CREATE TABLE 'Doctor' (
+  'd_id' int(11) DEFAULT '0',
+  'd_firstname' varchar(75) DEFAULT NULL,
+  'd_lastname' varchar(75) DEFAULT NULL,
+  'd_title' varchar(10) DEFAULT NULL,
+  'specialty' varchar(50) DEFAULT NULL
+);
+
+INSERT INTO 'Doctor' VALUES (1,'Bob','Samsom','MD','General Internal'),(2,'Ramesh','Hopkins','MD','General Internal'),(3,'Jane','Adams','DO','Pediatrics'),(4,'Sugirtha','Samson','MD','Toe Surgery'),(5,'timo','Bridgeston',NULL,'ENT'),(6,'ANNIKA','Sajan','MD','ENT'),(7,'Samuel','Cheatle','','Psychiatry'),(8,'Kathleen','WEIN','PhD','Neuro-psychiatry');
+
+CREATE TABLE 'Patient' (
+  'p_id' int(11) DEFAULT '0',
+  'p_firstname' varchar(75) DEFAULT NULL,
+  'p_lastname' varchar(75) DEFAULT NULL,
+  'bdate' date DEFAULT NULL
+);
+
+INSERT INTO 'Patient' VALUES (1,'Mark','Jones','1990-01-15'),(2,'Tom','Roberts','1985-02-27'),(3,'Sue','Steinberg','1981-03-07'),(4,'Becky','Jones','1985-04-12'),(5,'Jack','Fenandez','1982-04-27'),(6,'William','Villaneuva','1985-03-20'),(7,'Karen','Singh','1975-07-27'),(8,'Joseph','Lao','1978-12-01'),(9,'Todd','Wells','1971-12-07'),(10,'Ruchira','Preeti','1974-01-22'),(11,'Brenda','Cohann','1979-04-03');
+
+
