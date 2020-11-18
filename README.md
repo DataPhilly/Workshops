@@ -21,4 +21,5 @@
 **Tidyverse: How R should be used**. 
 - Instructor: [Zane Murphy](https://www.linkedin.com/in/zane-murphy-406809125/). 
 - Detail: R has been rapidly growing as one of the most widely used programming languages for data science in recent years. However, in its most basic form, R is complicated, a bit choppy, and generally doesn’t provide much benefit over its main competitor, Python. Enter Tidyverse, a collection of packages maintained by the R foundation for reading, cleaning, processing, modeling, and visualizing data. In this workshop, we will learn the best practices for coding in the Tidyverse and will come to understand why it is giving Pandas a run for its money. We will cover everything from installing and configuring the latest versions of R and the Tidyverse to building a model on sample data and visualizing the results in a markdown document.
-- Workshop information can be downloaded [here](https://github.com/zanemurphy/DataPhilly-Tidyverse/raw/master/WorkshopInfo.pdf)
+- Worshop files can be found [here](https://github.com/zanemurphy/DataPhilly-Tidyverse)
+  The files include the cheat sheets, .rmd file, and the info document for setting up their environments before the presentation.
