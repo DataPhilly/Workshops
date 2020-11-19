@@ -23,4 +23,7 @@
 - Detail: R has been rapidly growing as one of the most widely used programming languages for data science in recent years. However, in its most basic form, R is complicated, a bit choppy, and generally doesn’t provide much benefit over its main competitor, Python. Enter Tidyverse, a collection of packages maintained by the R foundation for reading, cleaning, processing, modeling, and visualizing data. In this workshop, we will learn the best practices for coding in the Tidyverse and will come to understand why it is giving Pandas a run for its money. We will cover everything from installing and configuring the latest versions of R and the Tidyverse to building a model on sample data and visualizing the results in a markdown document.
 - Workshop files can be found [here](https://github.com/zanemurphy/DataPhilly-Tidyverse)<br/>
   - The files include the cheat sheets, .rmd file, and the info document for setting up their environments before the presentation. 
-  - **Important**: Please download files **before** the workshop.
+- **Important**: Please download the following **before** the workshop.  
+  - RStudio, R, and the Tidyvverse package:  Easy download and installation documents can be found in this [document](https://github.com/DataPhilly/Workshops/blob/master/WorkshopFiles/Tidyverse/WorkshopInfo.pdf). 
+  - .Rmd workbook for the wokshop
+  - Data files
