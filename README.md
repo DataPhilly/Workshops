@@ -24,6 +24,6 @@
 - Workshop files can be found [here](https://github.com/zanemurphy/DataPhilly-Tidyverse)<br/>
   - The files include the cheat sheets, .rmd file, and the info document for setting up their environments before the presentation. 
 - **Important**: Please download the following **before** the workshop.  
-  - RStudio, R, and the Tidyvverse package:  Easy download and installation documents can be found in this [document](https://github.com/DataPhilly/Workshops/blob/master/WorkshopFiles/Tidyverse/WorkshopInfo.pdf). 
-  - .Rmd workbook for the wokshop
-  - Data files
+  - **RStudio, R, and the Tidyvverse package:**  Easy download and installation documents can be found in this [document](https://github.com/DataPhilly/Workshops/blob/master/WorkshopFiles/Tidyverse/WorkshopInfo.pdf). 
+  - [.Rmd workbook](https://github.com/DataPhilly/Workshops/blob/master/WorkshopFiles/Tidyverse/parking_violations_nb.Rmd) for the workshop
+  
