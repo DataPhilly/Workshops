@@ -1,0 +1,659 @@
+---
+title: "Parking Violations December 2017"
+author: "Zane Murphy"
+output: html_notebook
+---
+
+
+Press the run button, or hit Ctrl+SHIFT+ enter in any cell to evaluate the cell
+
+***
+
+Load necessary packages
+
+```{r}
+
+library(tidyverse)
+library(lubridate)
+
+```
+
+The following API returns a csv of parking violations incurred in the city of Philadelphia for any amount of time that we want.
+We will limit this to the month of December 2017, thought the API can be changed to pull more data depending on your memory limitations.
+
+```{r}
+
+'https://phl.carto.com/api/v2/sql?filename=parking_violations&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator&q=SELECT%20*%20FROM%20parking_violations%20WHERE%20issue_datetime%20%3E=%20%272017-12-01%27%20AND%20issue_datetime%20%3C%20%272018-01-01%27' %>%
+  url %>%
+  read.csv ->
+  
+  Parking_Dec2017_raw
+
+```
+
+
+The '->' symbol stores the output to a variable, here we have stored our output to `Parking_Dec2017_raw`.
+
+***
+
+Look at the data
+
+```{r}
+
+Parking_Dec2017_raw
+
+```
+
+
+Quick Summary of the data. This will only be useful for non-identifying numeric fields, like `fine`.
+
+```{r}
+
+summary(Parking_Dec2017_raw)
+
+```
+
+
+
+Introduction to magrittr pipes
+
+Standard:
+
+function(x) 
+
+Magrittr:
+
+x %>%
+  function
+  
+
+Why is this useful??
+
+Building pipelines. Avoiding Nesting.
+
+y <- function2(function1(x))
+
+becomes
+
+x %>%
+  function1 %>%
+  function2 ->
+  Y
+  
+***
+  
+Let's see this in action
+
+```{r}
+
+# summary(Parking_Dec2017_raw) becomes
+
+Parking_Dec2017_raw %>%
+  summary
+
+```
+
+What could possibly cause a $1001 parking fine??
+
+***
+
+We can answer this question using:
+
+dplyr
+
+dplyr is the basic data frame manipulations package included in the tidyverse.
+
+Let's run through some basic dplyr commands
+
+***
+
+Arrange
+
+Say we want to look at the tickets ordered by the fine amount
+
+
+```{r}
+
+Parking_Dec2017_raw %>%
+  
+  arrange(fine)
+
+```
+
+
+But this is boring, I want to see the large fines, and what violation the correspond to. Let's change the above command using the `desc()` wrapper.
+
+
+As an exercise, what would the command be to order the data frame by issue_datetime ascending? Descending?
+
+```{r}
+
+Parking_Dec2017_raw %>%
+  
+  
+
+```
+
+
+***
+
+There are a lot of null values in `division`, and I want to remove `lat`, `lon`, `gps`, and `zip_code` as well, since we won't deal with gps data in this workshop. 
+
+We can do this using the `select()` function
+
+
+Select
+
+Allows you to choose certain columns according to specified commands.
+Columns can be pruned by putting a '-' in front of the column name.
+
+
+```{r}
+
+Parking_Dec2017_raw %>%
+  
+  select(-division, -lat, -lon, -gps, -zip_code) ->
+  
+  Parking_Dec2017_pruned
+
+
+```
+
+Have a look at your new table
+
+```{r}
+
+Parking_Dec2017_pruned
+
+
+```
+
+
+
+How would we go about only selecting the `violation_desc` and `fine` columns from our `Parking_Dec2017_pruned` table?
+
+```{r}
+
+
+
+```
+
+
+
+***
+
+Filter
+
+I see a lot of `HP RESERVED SPACE` violations. Let's figure out what these violations look like.
+
+How many of the December 2017 violations were for parking in a Handicap Reserved Space??
+
+We can answer this using the `filter()` function
+
+***
+
+
+Allows you to choose certain rows according to a specified command.
+
+`select()` prunes columns, `filter()` prunes rows.
+
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  filter(violation_desc =='HP RESERVED SPACE')
+
+```
+
+
+What if we wanted to only look at rows with fines >$100 from `Parking_Dec2017_pruned`?
+
+
+```{r}
+
+
+```
+
+
+Now what if we also wanted to order the rows with fines > 100 by the fine amount ascending?
+
+
+```{r}
+
+
+```
+
+
+
+
+***
+
+Now let's look at the `count()` command.
+
+Count is used to group and count a variable. Without a grouping or argument, it simply counts the number of rows in the data frame.
+
+***
+
+Let's use this to count the number of `HP Reserved Space` tickets 
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  filter(violation_desc=='HP RESERVED SPACE') %>%
+  
+  count
+
+```
+
+And how many original tickets were there? Let's "break the pipe" and check.
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  #filter(violation_desc=='HP RESERVED SPACE') %>%
+  
+  count
+
+```
+
+This is why Magrittr pipes are so useful.
+
+
+
+Interesting, but what if we wanted to count how many handicap tickets were incurred by cars from each state in the city of Philadelphia?
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  filter(violation_desc == 'HP RESERVED SPACE') %>%
+  
+  count(state)
+
+```
+
+This makes a new column called `n` for the number of tickets for each state license plate.
+
+Let's arrange it by the count, `n`, descending
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  filter(violation_desc == 'HP RESERVED SPACE') %>%
+  
+  count(state) %>%
+  
+  arrange(desc(n))
+
+```
+
+
+
+As a practice, show me the count of issuing agency, in descending order, for all fines over $100 from `Parking_Dec2017_pruned`
+
+
+```{r}
+
+
+
+
+```
+
+***
+
+`group_by()` and `summarise()`
+
+
+`count()` is actually a special case of `group_by()` and `summarise()`.
+
+group_by lets you group the data frame based on one or more column(s).
+
+summarise lets you apply an aggregate over that grouping.
+
+Summarise can be  used without group_by, group_by is hardly ever used without summarize
+
+***
+
+Let's look at our pruned dataframe again
+
+```{r}
+
+Parking_Dec2017_pruned
+
+```
+
+***
+
+Let's count how many tickets (all tickets, not just handicapped) were given to cars of each state using `group_by` and `summarise`
+
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  group_by(state) %>%
+  
+  summarise(count=n())
+
+```
+
+This is made simpler by the `count()` command
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  count(state)
+
+```
+
+However, there are other aggregates, for which we need summarise and group_by.
+
+Let's say we wanted to know the average fine amount for cars from each state
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  group_by(state) %>%
+  
+  summarise(avg_fine = mean(fine))
+
+  
+```
+
+Sort it descending
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  group_by(state) %>%
+  
+  summarise(avg_fine = mean(fine)) %>%
+  
+  arrange(desc(avg_fine))
+
+```
+
+But let's say we also want to know how many cars belong to each state shown next to the average fine
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  group_by(state) %>%
+  
+  summarise(
+    avg_fine = mean(fine),
+    count = n()
+    ) %>%
+  
+  arrange(desc(avg_fine))
+
+
+```
+
+Let's filter out all the "insignificant" states with less than 10 cars
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  group_by(state) %>%
+  
+  summarise(
+    avg_fine = mean(fine),
+    count = n()
+    ) %>%
+  
+  arrange(desc(avg_fine)) %>%
+  
+  filter(count >= 10)
+
+
+```
+
+
+Hopefully now we can see how useful magrittr is for building pipes in data manipulation.
+
+Look at the table one more time:
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  count(violation_desc) %>%
+  arrange(desc(n))
+
+```
+
+
+EXERCISE
+
+Find the Maximum value fine issued by each issuing agency. Call your new column, `max_fine`, then keep only rows where the max fine is greater than $100, then sort by max_fine ascending
+HINT: use the `max()` aggregate
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  group_by(issuing_agency) %>%
+  
+  summarise(max_fine = max(fine)) %>%
+  
+  filter(max_fine > 100) %>%
+  
+  arrange(max_fine)
+
+```
+
+***
+
+
+Review (10 mins)
+
+
+We will now review what we have just learned. Please note that there will be multiple ways to answer this question. I will demonstrate the one most intuitive to me, but your answer is correct as long as it answers the question.
+
+
+
+1. Who issued more tickets in December 2017? Penn or Temple?
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+
+
+```
+
+2. Did Penn or Temple issue the higher average ticket price?
+NOTE: If you used group_by for number 1, then number 2 should be much easier
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+
+```
+
+
+Note for this next part that anon_plate_id is a way that the city uses for identifying each vehicle to which they issue tickets
+
+
+3. What was the number of the vehicle with the most `METER EXPIRED CC` tickets issued to it in December 2017?
+   How many `METER EXPIRED CC` tickets were issued to this vehicle?
+   
+   Note: you should be able to answer these two questions with the same block of code
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+
+```
+
+4. Did this vehicle have any other type of tickets issued against it in December 2017? If so, what kind of ticket?
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+
+```
+
+5. What was the total dollar amount of all fines incurred by this vehicle in December 2017?
+HINT: use the `sum()` aggregate
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+
+```
+
+BONUS. Which violation_desc did this car pay more total fines for in December 2017? By how much more?
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+
+```
+
+
+
+Manipulations are great using dplyr, however staring at data frames all day gets old. Let's look into some basic visualizations using `ggplot2`
+
+
+From the website [https://ggplot2.tidyverse.org/]
+
+"ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details"
+
+
+I am going to rush through this for the sake of time. I am happy to answer questions over e-mail. This is meant more to show off the iterative approach to building graphics in ggplot than anything else.
+
+We will use the following data frame here:
+
+
+```{r}
+
+Parking_Dec2017_pruned %>%
+  
+  count(issuing_agency) ->
+  
+  ParkingPlotFrame
+
+ParkingPlotFrame
+
+```
+
+
+To plot a data frame in ggplot, simply pipe it into the `ggplot()` command and dictate your mappings using the `aes()` wrapper
+
+Let's start by plotting a bar graph of the # of fines issued by each agency, so we will put `issuing_agency` on the x axis and `n` on the y axis:
+
+
+```{r}
+
+ParkingPlotFrame %>%
+  
+  ggplot(aes(x=issuing_agency, y=n))
+
+```
+
+This just gives us a blank graphic, so let's try adding a graph type to it. These graph types are given in the ggplot2 cheat sheet.
+
+Here we will use geom_bar. In ggplot, you are adding layers to the ggplot object, so you use the `+` operator
+
+```{r}
+
+ParkingPlotFrame %>%
+  
+  ggplot(aes(x=issuing_agency, y=n)) +
+  geom_bar(stat='identity')
+
+```
+
+We know that there is data in the other issuing agencies, but PPA is dominating here, so we will log scale the y axis
+
+```{r}
+
+ParkingPlotFrame %>%
+  
+  ggplot(aes(x=issuing_agency, y=n)) +
+  geom_bar(stat='identity') +
+  scale_y_log10()
+
+```
+
+Let's add some fill color to this graphic:
+
+```{r}
+
+ParkingPlotFrame %>%
+  
+  ggplot(aes(x=issuing_agency, y=n)) +
+  geom_bar(color='black', fill='light blue', stat='identity') +
+  scale_y_log10()
+
+
+```
+
+Let's re-order this so that the bars go in decreasing order
+
+
+```{r}
+
+ParkingPlotFrame %>%
+  
+  ggplot(aes(x=reorder(issuing_agency, -n), y=n)) +
+  geom_bar(color='black', fill='light blue', stat='identity') +
+  scale_y_log10()
+
+
+```
+
+Let's clean up the axis titles and add a plot title
+
+```{r}
+
+ParkingPlotFrame %>%
+  
+  ggplot(aes(x=reorder(issuing_agency, -n), y=n)) +
+  geom_bar(color='black', fill='light blue', stat='identity') +
+  scale_y_log10() +
+  xlab('Issuing Agency') +
+  ylab('Log(# Tickets)') +
+  ggtitle('Log of Ticket Incidence by Issuing Agency in Philadelphia. December 2017')
+  
+
+
+```
+
+
+Now for the Grand finale, pipe from the API directly into the graphic.
+
+```{r}
+
+'https://phl.carto.com/api/v2/sql?filename=parking_violations&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator&q=SELECT%20*%20FROM%20parking_violations%20WHERE%20issue_datetime%20%3E=%20%272017-12-01%27%20AND%20issue_datetime%20%3C%20%272018-01-01%27' %>%
+  
+  url %>%
+  read.csv %>%
+  count(issuing_agency) %>%
+  
+  ggplot(aes(x=reorder(issuing_agency, -n), y=n)) +
+  geom_bar(color='black', fill='light blue', stat='identity') +
+  scale_y_log10() +
+  xlab('Issuing Agency') +
+  ylab('Log(# Tickets)') +
+  ggtitle('Log of Ticket Incidence by Issuing Agency in Philadelphia. December 2017')
+
+```
+
+Thank you for attending this workshop! I hope you enjoyed learning about the Tidyverse!. Please contact me at zanemurphy1996@gmail.com or 567-868-5658 with any questions.
+
+As added practice you can try generating your own graphics in ggplot2 based on this, or other data sets. Try manipulating the `issue_datetime` column using the `Lubridate` package in the tidyverse (must be installed and loaded separately.) and try manipulating some character columns using the `Stringr` package. You could also change the dates in the API we used and rerun the notebook, creating new queries as you go.
