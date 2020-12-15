@@ -49,6 +49,8 @@
       - Open anaconda prompt  
         - Change directory: cd Desktop/ml_tutorials  
         - Create new conda environment with .yml file: conda env create -f environment_windows.yml  
-        -  Activate new environment conda activate hptuning  
+        - Activate new environment conda activate hptuning  
+        - For 64-bit operating system only:
+          - Install NumPy version 1.19.3: `pip install numpy==1.19.3`
         - Launch a Jupyter notebook: jupyter notebook
   
