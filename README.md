@@ -33,4 +33,22 @@
   - Understand different methods for hyperparameter tuning  
   - Perform hyperparameter optimization  
   - Build a model from scratch while incorporating hyperparameter optimization  
+- Workshop Setup Instructions:  
+  - **Mac Users:**  
+    - Open terminal  
+      - Change directory: cd Desktop
+      - Clone the repository: git clone https://github.com/benattix/ml_tutorials.git
+      - Change directory: cd ml_tutorials
+      - Create new conda environment with .yml file: conda env create -f environment_mac.yml
+      - Activate new environment source activate hptuning
+      - Launch a Jupyter notebook: jupyter notebook
+   - **Windows Users:**
+      - Open git bash  
+        - Change directory: cd Desktop  
+        - Clone the repository: git clone https://github.com/benattix/ml_tutorials.git  
+      - Open anaconda prompt  
+        - Change directory: cd Desktop/ml_tutorials  
+        - Create new conda environment with .yml file: conda env create -f environment_windows.yml  
+        -  Activate new environment conda activate hptuning  
+        - Launch a Jupyter notebook: jupyter notebook
   
