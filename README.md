@@ -36,21 +36,21 @@
 - Workshop Setup Instructions:  
   - **Mac Users:**  
     - Open terminal  
-      - Change directory: cd Desktop
-      - Clone the repository: git clone https://github.com/benattix/ml_tutorials.git
-      - Change directory: cd ml_tutorials
-      - Create new conda environment with .yml file: conda env create -f environment_mac.yml
+      - Change directory: `cd Desktop`
+      - Clone the repository: `git clone https://github.com/benattix/ml_tutorials.git`
+      - Change directory: `cd ml_tutorials`
+      - Create new conda environment with .yml file: `conda env create -f environment_mac.yml`
       - Activate new environment source activate hptuning
-      - Launch a Jupyter notebook: jupyter notebook
+      - Launch a Jupyter notebook: `jupyter notebook`
    - **Windows Users:**
       - Open git bash  
-        - Change directory: cd Desktop  
-        - Clone the repository: git clone https://github.com/benattix/ml_tutorials.git  
+        - Change directory: `cd Desktop`  
+        - Clone the repository: `git clone https://github.com/benattix/ml_tutorials.git`  
       - Open anaconda prompt  
-        - Change directory: cd Desktop/ml_tutorials  
-        - Create new conda environment with .yml file: conda env create -f environment_windows.yml  
-        - Activate new environment conda activate hptuning  
+        - Change directory: `cd Desktop/ml_tutorials`  
+        - Create new conda environment with .yml file: `conda env create -f environment_windows.yml`  
+        - Activate new environment: `conda activate hptuning`  
         - For 64-bit operating system only:
           - Install NumPy version 1.19.3: `pip install numpy==1.19.3`
-        - Launch a Jupyter notebook: jupyter notebook
+        - Launch a Jupyter notebook: `jupyter notebook`
   
