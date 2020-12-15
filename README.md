@@ -24,3 +24,13 @@
 - Workshop files can be found [here](https://github.com/zanemurphy/DataPhilly-Tidyverse) or [here](https://github.com/zanemurphy/DataPhilly-Tidyverse). 
   - The files include details on software and packages to be downloaded (WorkshopInfo.pdf), cheat sheets,  and .rmd file (parking_violations_nb.Rmd) used in the workshop.
   
+### December 2020  
+**Hyperparameter Optimization**
+- Instructor: [Ben Attix](https://www.linkedin.com/in/benattix/).
+- Detail: Attendees will be able to:  
+  - Define a hyperparameter and explain why they are important  
+  - Describe specific hyperparameters  
+  - Understand different methods for hyperparameter tuning  
+  - Perform hyperparameter optimization  
+  - Build a model from scratch while incorporating hyperparameter optimization  
+  
