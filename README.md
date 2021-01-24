@@ -55,7 +55,7 @@
         - Launch a Jupyter notebook: `jupyter notebook`
   
 ### January 2021 
-**Satellit Imagery Analysis with Python**
+**Satellite Imagery Analysis with Python**
 - Instructor: [Simon Kassel](https://www.linkedin.com/in/simon-kassel-6b074434/).  
 - Detail: Participants will learn the basics of working with geospatial data in Python. They will learn how to generate basic analytics using both vector (e.g. points, lines, and polygons) and raster (e.g. satellite imagery) datasets. The workshop will also discuss how to prepare imagery and labels for training machine learning models. Throughout the process of the workshop, attendees will be introduced to indispensable open-source geospatial libraries like GDAL, Rasterio, GeoPandas, and Shapely. 
 - Workshop downloads and setup instructions can be found [here](https://github.com/simonkassel/python-satellite-imagery-workshop)
