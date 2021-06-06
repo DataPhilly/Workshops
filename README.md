@@ -60,3 +60,10 @@
 - Detail: Participants will learn the basics of working with geospatial data in Python. They will learn how to generate basic analytics using both vector (e.g. points, lines, and polygons) and raster (e.g. satellite imagery) datasets. The workshop will also discuss how to prepare imagery and labels for training machine learning models. Throughout the process of the workshop, attendees will be introduced to indispensable open-source geospatial libraries like GDAL, Rasterio, GeoPandas, and Shapely. 
 - Workshop downloads and setup instructions can be found [here](https://github.com/simonkassel/python-satellite-imagery-workshop)
 - [Video recording of workshop](https://youtu.be/KFO9zCFBwtY)
+
+### May 2021
+**Workshop: Geospatial Data Analysis**
+- Speaker: [Dr. Fei Jiang](https://www.linkedin.com/in/fei-jiang)
+- Detail: Landcover classification using satellite data (e.g. Landsat8, Sentinel2, etc.) is becoming more and more popular as it is the foundation for many other projects (city planning, farm management, etc.). However, downloading large-sized satellite images (GBs) can be time consuming and requires large memory space. On the other hand, Google Earth Engine Python API provides an easy and fast way to get access to and query satellite data to points of your interest. In this workshop, we will learn how to use Google Earth Engine Python API to get time-series Sentinel2 data to two groups of points: points in urban area and points in crop lands, and then visualize and compare time-series Sentinel2 spectrums of points in urban areas and crop lands. If time permits, we will explore how to build up a machine learning model for landcover classification (cropland vs. urban land) using the above time-series data we obtain.
+- Workshop downloads and setup instructions can be found [here](https://github.com/PlantVillage/dataphilly_Jiang)
+- [Video Recording of Event](https://youtu.be/OSYm9e6BO40 )
